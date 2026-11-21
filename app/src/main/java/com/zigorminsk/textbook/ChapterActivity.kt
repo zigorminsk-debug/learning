@@ -189,9 +189,13 @@ class ChapterActivity : AppCompatActivity() {
         val widthDp = resources.configuration.screenWidthDp
         if (widthDp > MAX_READING_WIDTH_DP) {
             val px = (MAX_READING_WIDTH_DP * resources.displayMetrics.density + 0.5f).toInt()
-            webView.layoutParams = webView.layoutParams.apply { width = px }
-            (webView.parent as? android.widget.FrameLayout)?.let {
-                it.gravity = Gravity.CENTER_HORIZONTAL
+            val parent = webView.parent as? android.widget.FrameLayout
+            if (parent != null) {
+                webView.layoutParams = android.widget.FrameLayout.LayoutParams(
+                    px,
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    Gravity.CENTER_HORIZONTAL
+                )
             }
         }
     }
