@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// --- Постоянный ключ подписи (keystore/ в репозитории) ---
+def ksProps = new Properties()
+def ksPropsFile = rootProject.file('keystore/keystore.properties')
+if (ksPropsFile.exists()) {
+    ksPropsFile.withInputStream { ksProps.load(it) }
+}
+
+// --- Номер сборки: передаётся из CI (-PversionCode / -PversionName) ---
+def buildCode = (findProperty('versionCode') ?: '1').toString()
+def buildName = (findProperty('versionName') ?: '1.0.0').toString()
+
+android {
+    namespace 'com.zigorminsk.textbook'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.zigorminsk.textbook"
+        minSdk 24
+        targetSdk 34
+        versionCode buildCode.toInteger()
+        versionName buildName
+    }
+
+    signingConfigs {
+        release {
+            storeFile rootProject.file(ksProps.getProperty('storeFile', 'keystore/release.p12'))
+            storePassword ksProps.getProperty('storePassword', '')
+            keyAlias ksProps.getProperty('keyAlias', 'release')
+            keyPassword ksProps.getProperty('keyPassword', '')
+            storeType ksProps.getProperty('storeType', 'pkcs12')
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+}

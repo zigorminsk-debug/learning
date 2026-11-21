@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Бизнес: школы и практики</string>
+    <string name="header_text">Учебник по бизнесу, построенный на всех ведущих школах управления и экономической мысли: %1$d глав — от классики Тейлора и Файоля до платформ, Agile и ESG.</string>
+    <string name="build_label">Сборка приложения: %1$s</string>
+    <string name="chapter_label">Глава %1$d из %2$d</string>
+    <string name="prev_chapter">‹ Назад</string>
+    <string name="next_chapter">Далее ›</string>
+</resources>

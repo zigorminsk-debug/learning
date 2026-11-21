@@ -1,0 +1,134 @@
+[
+  {
+    "id": "01-vvedenie",
+    "file": "01-vvedenie.html",
+    "title": "Введение: карта бизнес-школ",
+    "subtitle": "Зачем предпринимателю и менеджеру несколько школ мышления"
+  },
+  {
+    "id": "02-klassicheskaya",
+    "file": "02-klassicheskaya.html",
+    "title": "Классическая школа управления",
+    "subtitle": "Тейлор, Файоль и Вебер: рациональность, порядок, регламент"
+  },
+  {
+    "id": "03-chelovecheskie-otnosheniya",
+    "file": "03-chelovecheskie-otnosheniya.html",
+    "title": "Школа человеческих отношений и бихевиоризм",
+    "subtitle": "Мэйо, Маслоу, Макгрегор, Херцберг: человек в системе"
+  },
+  {
+    "id": "04-kolichestvennaya",
+    "file": "04-kolichestvennaya.html",
+    "title": "Количественная школа и наука о решениях",
+    "subtitle": "Операционные исследования, Герберт Саймон и рациональность решений"
+  },
+  {
+    "id": "05-sistemnaya-situacionnaya",
+    "file": "05-sistemnaya-situacionnaya.html",
+    "title": "Системный и ситуационный подходы",
+    "subtitle": "Организация как целое и принцип «подходит для этой ситуации»"
+  },
+  {
+    "id": "06-strategicheskiy-menadzhment",
+    "file": "06-strategicheskiy-menadzhment.html",
+    "title": "Стратегический менеджмент",
+    "subtitle": "Ансофф, Портер, Минцберг: где и как конкурировать"
+  },
+  {
+    "id": "07-resursnaya-teoriya",
+    "file": "07-resursnaya-teoriya.html",
+    "title": "Ресурсная теория и динамические возможности",
+    "subtitle": "RBV, core competencies и способность меняться быстрее рынка"
+  },
+  {
+    "id": "08-disruptive-blue-ocean-lean-startup",
+    "file": "08-disruptive-blue-ocean-lean-startup.html",
+    "title": "Дискруптивные инновации, Blue Ocean и Lean Startup",
+    "subtitle": "Кристенсен, Ким и Моборн, Рис: как создавать рынки, а не драться за них"
+  },
+  {
+    "id": "09-avstriyskaya-shkola",
+    "file": "09-avstriyskaya-shkola.html",
+    "title": "Австрийская школа и предпринимательство",
+    "subtitle": "Мизес, Хайек, Кирцнер, Шумпетер: рынок как процесс открытия"
+  },
+  {
+    "id": "10-makroekonomicheskie-shkoly",
+    "file": "10-makroekonomicheskie-shkoly.html",
+    "title": "Макроэкономические школы для бизнеса",
+    "subtitle": "Кейнсианство, монетаризм и чикагская школа: как среда управляет фирмой"
+  },
+  {
+    "id": "11-povedencheskaya-ekonomika",
+    "file": "11-povedencheskaya-ekonomika.html",
+    "title": "Поведенческая экономика",
+    "subtitle": "Канеман, Тверски, Талер: систематические ошибки, которые стоит денег"
+  },
+  {
+    "id": "12-lean-toyota",
+    "file": "12-lean-toyota.html",
+    "title": "Toyota Production System и Lean",
+    "subtitle": "Оно, Сёдзо, Сугито: поток ценности, джидока и kaizen"
+  },
+  {
+    "id": "13-teoriya-ogranicheniy",
+    "file": "13-teoriya-ogranicheniy.html",
+    "title": "Теория ограничений",
+    "subtitle": "Элияху Голдратт: найди бутылочное горлышко и подчини ему всё"
+  },
+  {
+    "id": "14-shkoly-kachestva",
+    "file": "14-shkoly-kachestva.html",
+    "title": "Школы качества",
+    "subtitle": "Деминг, Джуран, Кросби, Six Sigma: качество как система, а не инспекция"
+  },
+  {
+    "id": "15-organizacionnaya-teoriya",
+    "file": "15-organizacionnaya-teoriya.html",
+    "title": "Организационная теория и структуры",
+    "subtitle": "Минцберг, Бёрнс и Столкер, Чандлер: координация вместо иерархии «по умолчанию»"
+  },
+  {
+    "id": "16-kultura-motivaciya",
+    "file": "16-kultura-motivaciya.html",
+    "title": "Корпоративная культура, мотивация и люди",
+    "subtitle": "Шейн, Дил и Кеннеди, Пинк: как ценности превращаются в поведение"
+  },
+  {
+    "id": "17-liderstvo",
+    "file": "17-liderstvo.html",
+    "title": "Лидерство",
+    "subtitle": "От черт к ситуационному, трансформационному и servant-лидерству"
+  },
+  {
+    "id": "18-marketingovye-shkoly",
+    "file": "18-marketingovye-shkoly.html",
+    "title": "Маркетинговые школы",
+    "subtitle": "Котлер, Рис и Траут, JTBD: от 4P к позиционированию и задачам клиента"
+  },
+  {
+    "id": "19-platformy",
+    "file": "19-platformy.html",
+    "title": "Платформы, экосистемы и сетевые эффекты",
+    "subtitle": "Паркер, Ван Алстине, Чоудхари: бизнес, который растёт от каждого участника"
+  },
+  {
+    "id": "20-agile-design-thinking",
+    "file": "20-agile-design-thinking.html",
+    "title": "Agile, Scrum и дизайн-мышление",
+    "subtitle": "Манифест 2001 года, Scrum, IDEO: скорость обучения вместо гигантских планов"
+  },
+  {
+    "id": "21-cifrovaya-transformaciya",
+    "file": "21-cifrovaya-transformaciya.html",
+    "title": "Цифровая трансформация и data-driven управление",
+    "subtitle": "Данные, алгоритмы, AI: управление по факту, по прогнозу и по этике"
+  },
+  {
+    "id": "22-etika-esg",
+    "file": "22-etika-esg.html",
+    "title": "Деловая этика, ESG и устойчивое развитие",
+    "subtitle": "Фридман vs Фримэн, Портер и Крамер: ради чего существует компания"
+  }
+]

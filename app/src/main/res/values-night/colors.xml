@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="secondary">#26A69A</color>
+    <color name="toolbar_subtitle">#BBDEFB</color>
+    <color name="text_secondary">#BDC1C6</color>
+    <color name="text_hint">#9AA0A6</color>
+    <color name="number_badge_bg">#1E3A5F</color>
+    <color name="page_bg">#121212</color>
+    <color name="page_text">#E8EAED</color>
+</resources>

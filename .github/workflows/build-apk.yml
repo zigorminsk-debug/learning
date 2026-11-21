@@ -1,0 +1,100 @@
+name: Build APK
+
+# Сборка запускается сразу после каждого изменения (push) в main или в ветке сессии.
+# Каждая сборка получает свой номер (github.run_number), подписывается постоянным
+# ключом из keystore/ и публикуется как GitHub Release + артефакт.
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build, sign, release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages
+        run: |
+          SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          if command -v sdkmanager >/dev/null 2>&1; then
+            SDKMANAGER=sdkmanager
+          else
+            SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -name sdkmanager -type f | head -n 1)"
+          fi
+          echo "Using sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate chapter HTML from Markdown
+        run: |
+          pip install markdown
+          python tools/build_html.py
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build signed release APK (build number ${{ github.run_number }})
+        run: |
+          ./gradlew assembleRelease \
+            -PversionCode=${{ github.run_number }} \
+            -PversionName=1.0.${{ github.run_number }}
+
+      - name: Rename APK with build number
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk \
+             "BusinessTextbook-1.0.${{ github.run_number }}.apk"
+          ls -la "BusinessTextbook-1.0.${{ github.run_number }}.apk"
+
+      - name: Verify APK signature
+        run: |
+          APK="BusinessTextbook-1.0.${{ github.run_number }}.apk"
+          SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          APKSIGNER="$(find "$SDK_ROOT/build-tools" -name apksigner -type f | sort | tail -n 1)"
+          echo "Using apksigner: $APKSIGNER"
+          "$APKSIGNER" verify --print-certs "$APK"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BusinessTextbook-1.0.${{ github.run_number }}
+          path: BusinessTextbook-1.0.${{ github.run_number }}.apk
+          if-no-files-found: error
+
+      - name: Publish GitHub Release with build number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="apk-v1.0.${{ github.run_number }}"
+          APK="BusinessTextbook-1.0.${{ github.run_number }}.apk"
+          TITLE="Бизнес: школы и практики — сборка 1.0.${{ github.run_number }}"
+          NOTES="Автоматическая сборка №${{ github.run_number }} (commit ${GITHUB_SHA::12}).
+          Подписана постоянным ключом — обновление устанавливается поверх предыдущих сборок."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK" --clobber
+          else
+            gh release create "$TAG" "$APK" --title "$TITLE" --notes "$NOTES"
+          fi
