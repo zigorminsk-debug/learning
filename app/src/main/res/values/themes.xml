@@ -7,6 +7,15 @@
         <item name="colorSurface">@color/page_bg</item>
         <item name="colorOnSurface">@color/page_text</item>
         <item name="android:statusBarColor">@color/primary_dark</item>
+        <!-- Статус-бар всегда тёмно-синий → иконки должны быть светлыми в обеих темах -->
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/page_bg</item>
+    </style>
+
+    <!-- Заголовок тулбара: одна строка с многоточием (длинные названия глав) -->
+    <style name="ToolbarTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 </resources>

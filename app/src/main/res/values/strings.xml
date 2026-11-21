@@ -6,4 +6,19 @@
     <string name="chapter_label">Глава %1$d из %2$d</string>
     <string name="prev_chapter">‹ Назад</string>
     <string name="next_chapter">Далее ›</string>
+
+    <string name="action_search">Поиск</string>
+    <string name="search_hint">Поиск по главам</string>
+    <string name="no_results">Ничего не найдено</string>
+    <string name="action_theme">Тема</string>
+    <string name="theme_title">Тема оформления</string>
+    <string name="theme_system">Следовать за системой</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="cancel">Отмена</string>
+    <string name="continue_reading">Продолжить чтение</string>
+    <string name="continue_reading_with">Продолжить: глава %1$d — %2$s</string>
+    <string name="toc_title">Содержание</string>
+    <string name="font_smaller">А−</string>
+    <string name="font_larger">А+</string>
 </resources>

@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ChapterAdapter(
     private val chapters: List<Chapter>,
-    private val onClick: (Int) -> Unit
+    private val onClick: (Chapter) -> Unit
 ) : RecyclerView.Adapter<ChapterAdapter.Holder>() {
+
+    private var visible: List<Chapter> = chapters
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val number: TextView = view.findViewById(R.id.chapterNumber)
@@ -24,12 +26,26 @@ class ChapterAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val chapter = chapters[position]
-        holder.number.text = (position + 1).toString()
+        val chapter = visible[position]
+        // Номер — позиция в полном списке глав (не в отфильтрованном)
+        holder.number.text = (chapters.indexOfFirst { it.id == chapter.id } + 1).toString()
         holder.title.text = chapter.title
         holder.subtitle.text = chapter.subtitle
-        holder.itemView.setOnClickListener { onClick(holder.bindingAdapterPosition) }
+        holder.itemView.setOnClickListener { onClick(chapter) }
     }
 
-    override fun getItemCount(): Int = chapters.size
+    override fun getItemCount(): Int = visible.size
+
+    /** Показывает только главы, подходящие под запрос (пустой запрос = все главы). */
+    fun filter(query: String) {
+        visible = if (query.isBlank()) {
+            chapters
+        } else {
+            chapters.filter {
+                it.title.contains(query, ignoreCase = true) ||
+                    it.subtitle.contains(query, ignoreCase = true)
+            }
+        }
+        notifyDataSetChanged()
+    }
 }
