@@ -22,7 +22,7 @@ class ChapterActivity : AppCompatActivity() {
 
     private lateinit var chapters: List<Chapter>
     private lateinit var webView: WebView
-    private lateinit var toolbar: androidx.appcompat.widget.MaterialToolbar
+    private lateinit var toolbar: com.google.android.material.appbar.MaterialToolbar
     private lateinit var btnPrev: Button
     private lateinit var btnNext: Button
     private var position: Int = 0
