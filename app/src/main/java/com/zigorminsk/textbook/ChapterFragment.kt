@@ -503,7 +503,7 @@ class ChapterFragment : Fragment(), MenuProvider {
         val chunks = mutableListOf<String>()
         var rest = text
         while (rest.length > size) {
-            var cut = maxOf(rest.lastIndexOf('. ', size), rest.lastIndexOf('\n', size))
+            var cut = maxOf(rest.lastIndexOf(". ", size), rest.lastIndexOf('\n', size))
             if (cut < size / 2) cut = size
             chunks += rest.substring(0, cut + 1).trim()
             rest = rest.substring(cut + 1).trim()
