@@ -11,6 +11,7 @@ import android.os.SystemClock
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -24,9 +25,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.MenuHost
-import androidx.activity.addMenuProvider
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -87,6 +87,7 @@ class ChapterFragment : Fragment(), MenuProvider {
 
     private var downX = 0f
     private var downY = 0f
+    private var downScrollX = 0
     private var downTime = 0L
     private var gestureCancelled = false
 
@@ -291,6 +292,7 @@ class ChapterFragment : Fragment(), MenuProvider {
             MotionEvent.ACTION_DOWN -> {
                 downX = event.x
                 downY = event.y
+                downScrollX = if (::webView.isInitialized) webView.scrollX else 0
                 downTime = SystemClock.uptimeMillis()
                 gestureCancelled = false
             }
@@ -304,12 +306,13 @@ class ChapterFragment : Fragment(), MenuProvider {
                     if (dt in 1..600 && kotlin.math.abs(dx) > threshold &&
                         kotlin.math.abs(dx) > kotlin.math.abs(dy) * 2
                     ) {
-                        val maxScrollX =
-                            ((webView.contentWidth * webView.scale).toInt() - webView.width)
-                                .coerceAtLeast(0)
-                        if (dx < 0 && webView.scrollX >= maxScrollX) {
+                        // Контент сдвинулся по горизонтали — значит, страница ещё
+                        // прокручивается, свайп отдаём ей. Не сдвинулся — контент
+                        // упёрся в край (или не шире экрана) — переключаем главу.
+                        val contentScrolled = webView.scrollX != downScrollX
+                        if (!contentScrolled && dx < 0) {
                             open(position + 1)
-                        } else if (dx > 0 && webView.scrollX <= 0) {
+                        } else if (!contentScrolled && dx > 0) {
                             open(position - 1)
                         }
                     }
@@ -445,7 +448,7 @@ class ChapterFragment : Fragment(), MenuProvider {
                 }
             }
         }
-        tts?.setOnUtteranceProgressListener(object : TextToSpeech.OnUtteranceProgressListener() {
+        tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) = Unit
 
             override fun onDone(utteranceId: String?) {
