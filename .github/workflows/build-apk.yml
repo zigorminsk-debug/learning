@@ -120,3 +120,41 @@ jobs:
           else
             gh release create "$TAG" "$APK" --title "$TITLE" --notes "$NOTES"
           fi
+
+      - name: Run unit tests and render UI screenshots
+        run: ./gradlew testReleaseUnitTest
+
+      - name: Upload test reports and UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-tests-1.0.${{ github.run_number }}
+          path: |
+            app/build/reports/ui-screenshots/
+            app/build/reports/tests/
+          if-no-files-found: warn
+
+      - name: Report test failures as annotations
+        if: always()
+        run: |
+          python3 - <<'PYEOF' || true
+          import glob
+          import xml.etree.ElementTree as ET
+
+          files = glob.glob('app/build/test-results/**/*.xml', recursive=True)
+          total = 0
+          for f in files:
+              try:
+                  root = ET.parse(f).getroot()
+              except Exception:
+                  continue
+              for case in root.iter('testcase'):
+                  for child in list(case):
+                      if child.tag in ('failure', 'error'):
+                          total += 1
+                          msg = (child.get('message') or child.text or '')[:800]
+                          msg = msg.replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
+                          name = case.get('name', '?')
+                          print(f"::error title=Test failed: {name}::{msg}")
+          print(f"total_failures={total}")
+          PYEOF

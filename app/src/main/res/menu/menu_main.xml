@@ -10,7 +10,23 @@
         app:showAsAction="collapseActionView|ifRoom" />
 
     <item
+        android:id="@+id/action_random"
+        android:title="@string/action_random"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_bookmarks"
+        android:checkable="true"
+        android:title="@string/action_bookmarks"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_theme"
         android:title="@string/action_theme"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_update"
+        android:title="@string/action_update"
         app:showAsAction="never" />
 </menu>

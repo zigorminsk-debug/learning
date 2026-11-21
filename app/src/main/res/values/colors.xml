@@ -10,4 +10,8 @@
     <color name="number_badge_bg">#E3F2FD</color>
     <color name="page_bg">#FFFFFF</color>
     <color name="page_text">#202124</color>
+    <color name="star_active">#F9A825</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="progress_track">#E0E0E0</color>
+    <color name="selected_stroke">#1565C0</color>
 </resources>

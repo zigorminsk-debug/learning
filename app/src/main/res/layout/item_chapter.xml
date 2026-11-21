@@ -59,7 +59,41 @@
                 android:maxLines="2"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
+
+            <!-- Прогресс чтения (%) -->
+            <LinearLayout
+                android:id="@+id/progressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/progressFill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/primary" />
+
+                <View
+                    android:id="@+id/progressRest"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/progress_track" />
+            </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/chapterStar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/bookmark_toggle"
+            android:src="@drawable/ic_star_filled"
+            android:tint="@color/star_active"
+            android:visibility="gone" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

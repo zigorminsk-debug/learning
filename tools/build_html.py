@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import html as html_mod
 import json
 import re
 import sys
@@ -22,6 +23,20 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = ROOT / "textbook"
 OUT_DIR = ROOT / "app" / "src" / "main" / "assets" / "chapters"
 INDEX_PATH = ROOT / "app" / "src" / "main" / "assets" / "index.json"
+SEARCH_PATH = ROOT / "app" / "src" / "main" / "assets" / "search_index.json"
+
+TAG_RE = re.compile(r"<[^>]+>")
+ARTICLE_RE = re.compile(r"<article.*?</article>", re.S)
+
+
+def html_to_text(fragment: str) -> str:
+    """Превращает HTML-фрагмент в чистый текст для полнотекстового поиска."""
+    text = TAG_RE.sub(" ", fragment)
+    text = html_mod.unescape(text)
+    text = re.sub(r"[ \t\u00a0]+", " ", text)
+    text = re.sub(r" *\n *", "\n", text)
+    text = re.sub(r"\n{2,}", "\n\n", text)
+    return text.strip()
 
 FRONT_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.S)
 
@@ -90,6 +105,7 @@ def build() -> int:
     extension_configs = {"toc": {"toc_depth": "2-2", "permalink": False}}
 
     index = []
+    search_index = []
     for number, src in enumerate(sources, start=1):
         raw = src.read_text(encoding="utf-8")
         meta, body = parse_front_matter(raw)
@@ -121,12 +137,22 @@ def build() -> int:
                 "subtitle": subtitle,
             }
         )
+
+        article = ARTICLE_RE.search(html)
+        plain = html_to_text(article.group(0) if article else html)
+        search_index.append({"id": src.stem, "title": title, "text": plain})
         print(f"  [{number:02d}] {src.name} -> {out_file.name}")
 
     INDEX_PATH.write_text(
         json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    print(f"Готово: {len(index)} глав, индекс: {INDEX_PATH.relative_to(ROOT)}")
+    SEARCH_PATH.write_text(
+        json.dumps(search_index, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Готово: {len(index)} глав, индекс: {INDEX_PATH.relative_to(ROOT)}, "
+        f"поиск: {SEARCH_PATH.relative_to(ROOT)}"
+    )
     return 0
 
 

@@ -8,8 +8,9 @@
     <string name="next_chapter">Далее ›</string>
 
     <string name="action_search">Поиск</string>
-    <string name="search_hint">Поиск по главам</string>
+    <string name="search_hint">Поиск по главам и тексту</string>
     <string name="no_results">Ничего не найдено</string>
+    <string name="no_bookmarks">Закладок пока нет</string>
     <string name="action_theme">Тема</string>
     <string name="theme_title">Тема оформления</string>
     <string name="theme_system">Следовать за системой</string>
@@ -21,4 +22,26 @@
     <string name="toc_title">Содержание</string>
     <string name="font_smaller">А−</string>
     <string name="font_larger">А+</string>
+
+    <string name="action_random">Случайная глава</string>
+    <string name="action_bookmarks">Закладки</string>
+    <string name="action_update">Проверить обновления</string>
+    <string name="bookmark_toggle">Закладка</string>
+    <string name="tts_play">Слушать</string>
+    <string name="tts_stop">Стоп</string>
+    <string name="tts_unavailable">Не удалось запустить озвучку</string>
+    <string name="pdf_export">Сохранить в PDF</string>
+    <string name="share_chapter">Поделиться главой</string>
+    <string name="text_unavailable">Текст главы недоступен</string>
+
+    <string name="update_title">Обновление приложения</string>
+    <string name="update_available">Доступна новая сборка %1$s (у вас %2$s). Открыть страницу загрузки?</string>
+    <string name="update_latest">У вас последняя сборка (%1$s)</string>
+    <string name="update_check_failed">Не удалось проверить обновления</string>
+    <string name="open">Открыть</string>
+    <string name="later">Позже</string>
+
+    <string name="two_pane_empty">Выберите главу слева,\nчтобы начать чтение</string>
+    <string name="widget_label">Случайная глава</string>
+    <string name="widget_description">Открывает случайную главу учебника</string>
 </resources>
